@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment4.Controllers.Card
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class CardController : ControllerBase
     {
         private readonly CardService _cardService;
@@ -16,7 +16,7 @@ namespace Assignment4.Controllers.Card
         private readonly RarityService _rarityService;
 
         private readonly IMapper _mapper;
-        private readonly ILogger<ClassService> _logger;
+        private readonly ILogger<CardController> _logger;
 
 
         public CardController(
@@ -26,7 +26,7 @@ namespace Assignment4.Controllers.Card
             SetsService setsService,
             RarityService rarityService,
             IMapper mapper,
-            ILogger<ClassService> logger)
+            ILogger<CardController> logger)
         {
             _cardService = cardService;
             _classService = classService;
@@ -64,39 +64,23 @@ namespace Assignment4.Controllers.Card
             }
 
             var classes = await _classService.GetClasses();
-
             var types = await _typeService.GetTypes();
-
             var sets = await _setsService.GetSets();
+            var rarities = await _rarityService.GetRarities();
 
-            var rarity = await _rarityService.GetRarities();
-            
-            var cardsResponse = new List<CardResponse>();
-
-            foreach (var card in cards)
+            var cardsResponse = cards.Select(card =>
             {
                 var currentCard = _mapper.Map<CardResponse>(card);
 
-                foreach (var @class in classes)
-                {
-                    if (card.ClassId == @class.Id)
-                    {
-                        currentCard.Class = @class.Name;
-                    }
-                }
+                currentCard.Class = classes.FirstOrDefault(c => c.Id == card.ClassId)?.Name!;
+                currentCard.Type = types.FirstOrDefault(t => t.Id == card.TypeId)?.Name!;
+                currentCard.Set = sets.FirstOrDefault(s => s.Id == card.SetId)?.Name!;
+                currentCard.Rarity = rarities.FirstOrDefault(r => r.Id == card.RarityId)?.Name!;
 
-                foreach (var cardType in types)
-                {
-                    if (card.TypeId == cardType.Id)
-                    {
-                        currentCard.Type == cardType.Name;
-                    }
-                }
+                return currentCard;
+            }).ToList();
 
-                cardsResponse.Add(currentCard);
-            }
-
-            _logger.LogInformation($"GetClasses request completed. {cards.Count} classes found.");
+            _logger.LogInformation($"GetCardsWithParameters request completed. {cards.Count} cards found.");
 
             return Ok(cardsResponse);
         }

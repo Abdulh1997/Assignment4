@@ -2,26 +2,31 @@
 using Hearthstone.DataAccess.Service;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Assignment4.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class RaritiesController : ControllerBase
     {
-
         private readonly RarityService _service;
-        public RaritiesController(RarityService rarityService)
+        private readonly ILogger<RaritiesController> _logger;
+
+        public RaritiesController(RarityService rarityService, ILogger<RaritiesController> logger)
         {
             _service = rarityService;
+            _logger = logger;
         }
 
         [HttpGet("classes")]
         public async Task<IReadOnlyList<Rarity>> GetRarities()
         {
-            return await _service.GetRarities();
-        }
+            _logger.LogInformation("GetRarities request received.");
 
+            var rarities = await _service.GetRarities();
+
+            _logger.LogInformation($"GetRarities request completed. {rarities.Count} rarities found.");
+
+            return rarities;
+        }
     }
 }

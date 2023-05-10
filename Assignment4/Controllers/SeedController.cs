@@ -8,17 +8,22 @@ namespace Assignment4.Controllers
     public class SeedController : ControllerBase
     {
         private readonly MongoDbSeedService _mongoDbSeedService;
-
-        public SeedController(MongoDbSeedService mongoDbSeedService)
+        private readonly ILogger<SeedController> _logger;
+        
+        public SeedController(MongoDbSeedService mongoDbSeedService, ILogger<SeedController> logger)
         {
             _mongoDbSeedService = mongoDbSeedService;
+            _logger = logger;
         }
 
-        // GET: api/<TestController>
         [HttpPost("/seed")]
         public async Task<ActionResult> SeedMongoDb()
         {
+            _logger.LogInformation("SeedMongoDb request received.");
+
             await _mongoDbSeedService.SeedMongoDb();
+
+            _logger.LogInformation("SeedMongoDb request completed.");
 
             return Ok();
         }
