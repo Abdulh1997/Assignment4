@@ -89,7 +89,7 @@ namespace Assignment4.Controllers.Card
                 {
                     if (card.TypeId == cardType.Id)
                     {
-                        _ = currentCard.Type == cardType.Name;
+                        currentCard.Type == cardType.Name;
                     }
                 }
 
