@@ -1,5 +1,5 @@
 ﻿using Hearthstone.DataAccess.Models;
-using Hearthstone.DataAccess.Service;
+using Hearthstone.DataAccess.MongoDbServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment4.Controllers

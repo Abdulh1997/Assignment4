@@ -1,26 +1,31 @@
 ﻿using System.Text.Json;
+using Hearthstone.DataAccess.Configuration;
 using Hearthstone.DataAccess.Models;
 using MongoDB.Driver;
+using Microsoft.Extensions.Options;
 
-namespace Hearthstone.DataAccess.Service
+namespace Hearthstone.DataAccess.MongoDbServices
 {
-    public class MongoDbSeedService
+    public class SeedService
     {
         public MongoClient Client { get; }
 
-        public MongoDbSeedService(string? connectionString)
+        private readonly IOptions<MongoDbConfig> _config;
+
+        public SeedService(IOptions<MongoDbConfig> config)
         {
-            Client = new MongoClient(connectionString);
+            _config = config;
+            Client = new MongoClient(_config.Value.ConnectionString);
         }
 
         public async Task SeedMongoDb()
         {
-            var db = Client.GetDatabase("BED4");
+            var db = Client.GetDatabase(_config.Value.DatabaseName);
 
-            if ((await Client.GetDatabase("BED4").ListCollectionsAsync()).ToList().Count != 0) return;
+            if ((await Client.GetDatabase(_config.Value.DatabaseName).ListCollectionsAsync()).ToList().Count != 0) return;
 
             // SEED cards.json Data
-            var collection = db.GetCollection<Card>("cards");
+            var collection = db.GetCollection<Card>(_config.Value.CardsCollection);
 
             foreach (var path in new[] { "cards.json" })
             {
@@ -32,10 +37,10 @@ namespace Hearthstone.DataAccess.Service
                 await collection.InsertManyAsync(cards);
             }
 
-            var collectionSets = db.GetCollection<Set>("sets");
-            var collectionRarities = db.GetCollection<Rarity>("rarities");
-            var collectionClasses = db.GetCollection<Class>("classes");
-            var collectionTypes = db.GetCollection<CardType>("types");
+            var collectionSets = db.GetCollection<Set>(_config.Value.SetsCollection);
+            var collectionRarities = db.GetCollection<Rarity>(_config.Value.RaritiesCollection);
+            var collectionClasses = db.GetCollection<Class>(_config.Value.ClassesCollection);
+            var collectionTypes = db.GetCollection<CardType>(_config.Value.TypesCollection);
 
             using (var file = new StreamReader("metadata.json"))
             {

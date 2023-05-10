@@ -1,11 +1,12 @@
 using System.Reflection;
-using Hearthstone.DataAccess.Service;
+using Hearthstone.DataAccess.Configuration;
+using Hearthstone.DataAccess.MongoDbServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton(sp =>
-    new MongoDbSeedService(builder.Configuration.GetConnectionString("MongoDb")));
+builder.Services.Configure<MongoDbConfig>(builder.Configuration.GetSection("MongoDbConfig"));
+builder.Services.AddSingleton<SeedService>();
 builder.Services.AddSingleton<CardService>();
 builder.Services.AddSingleton<ClassService>();
 builder.Services.AddSingleton<SetsService>();

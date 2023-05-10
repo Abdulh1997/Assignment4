@@ -1,16 +1,18 @@
-﻿using Hearthstone.DataAccess.Models;
+﻿using Hearthstone.DataAccess.Configuration;
+using Hearthstone.DataAccess.Models;
+using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace Hearthstone.DataAccess.Service
+namespace Hearthstone.DataAccess.MongoDbServices
 {
     public class CardService
     {
         private readonly IMongoCollection<Card> _collection;
 
-        public CardService(MongoDbSeedService dbSeedService)
+        public CardService(SeedService dbSeedService, IOptions<MongoDbConfig> config)
         {
-            _collection = dbSeedService.Client.GetDatabase("BED4").GetCollection<Card>("cards");
+            _collection = dbSeedService.Client.GetDatabase(config.Value.DatabaseName).GetCollection<Card>(config.Value.CardsCollection);
         }
 
         public async Task<IReadOnlyList<Card>> GetCards(int? setId = null, int? classId = null, int? rarityId = null, int? typeid = null, string? artist = null, int? page = null)
@@ -47,8 +49,7 @@ namespace Hearthstone.DataAccess.Service
             }
 
             var result = _collection.Find(filter);
-            var countTask = result.CountDocumentsAsync();
-            var count = await countTask;
+            var count = await result.CountDocumentsAsync();
 
             if (page != null && count >= pageEntries)
             {

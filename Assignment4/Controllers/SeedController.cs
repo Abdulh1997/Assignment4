@@ -1,4 +1,4 @@
-﻿using Hearthstone.DataAccess.Service;
+﻿using Hearthstone.DataAccess.MongoDbServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment4.Controllers
@@ -7,12 +7,12 @@ namespace Assignment4.Controllers
     [ApiController]
     public class SeedController : ControllerBase
     {
-        private readonly MongoDbSeedService _mongoDbSeedService;
+        private readonly SeedService _seedService;
         private readonly ILogger<SeedController> _logger;
         
-        public SeedController(MongoDbSeedService mongoDbSeedService, ILogger<SeedController> logger)
+        public SeedController(SeedService seedService, ILogger<SeedController> logger)
         {
-            _mongoDbSeedService = mongoDbSeedService;
+            _seedService = seedService;
             _logger = logger;
         }
 
@@ -21,7 +21,7 @@ namespace Assignment4.Controllers
         {
             _logger.LogInformation("SeedMongoDb request received.");
 
-            await _mongoDbSeedService.SeedMongoDb();
+            await _seedService.SeedMongoDb();
 
             _logger.LogInformation("SeedMongoDb request completed.");
 
