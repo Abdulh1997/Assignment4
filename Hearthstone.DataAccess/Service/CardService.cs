@@ -1,5 +1,4 @@
 ﻿using Hearthstone.DataAccess.Models;
-using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -7,21 +6,12 @@ namespace Hearthstone.DataAccess.Service
 {
     public class CardService
     {
-        private readonly ILogger<CardService> _logger;
         private readonly IMongoCollection<Card> _collection;
 
-        public CardService(ILogger<CardService> logger, MongoDbSeedService dbSeedService)
+        public CardService(MongoDbSeedService dbSeedService)
         {
             _collection = dbSeedService.Client.GetDatabase("BED4").GetCollection<Card>("cards");
-            _logger = logger;
         }
-
-        //public async Task<IReadOnlyList<Card>> GetAllCards()
-        //{
-        //    var cards = await _collection.Find(Builders<Card>.Filter.Empty).ToListAsync();
-
-        //    return cards;
-        //}
 
         public async Task<IReadOnlyList<Card>> GetCards(int? setId = null, int? classId = null, int? rarityId = null, int? typeid = null, string? artist = null, int? page = null)
         {
