@@ -1,8 +1,6 @@
-﻿using Assignment4.Modeles;
-using Assignment4.Service;
+﻿using Hearthstone.DataAccess.Models;
+using Hearthstone.DataAccess.Service;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Assignment4.Controllers
 {
@@ -18,7 +16,7 @@ namespace Assignment4.Controllers
         }
 
         [HttpGet("classes")]
-        public async Task<IList<Class>> GetClasses()
+        public async Task<IReadOnlyList<Class>> GetClasses()
         {
             return await _service.GetClasses();
         }

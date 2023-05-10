@@ -1,5 +1,5 @@
-﻿using Assignment4.Modeles;
-using Assignment4.Service;
+﻿using Hearthstone.DataAccess.Models;
+using Hearthstone.DataAccess.Service;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,14 +11,14 @@ namespace Assignment4.Controllers
     public class RaritiesController : ControllerBase
     {
 
-        private readonly RaritieService _service;
-        public RaritiesController(RaritieService raritieService)
+        private readonly RarityService _service;
+        public RaritiesController(RarityService rarityService)
         {
-            _service = raritieService;
+            _service = rarityService;
         }
 
         [HttpGet("classes")]
-        public async Task<IList<Rarity>> GetRarities()
+        public async Task<IReadOnlyList<Rarity>> GetRarities()
         {
             return await _service.GetRarities();
         }
