@@ -1,25 +1,24 @@
-﻿using Hearthstone.DataAccess.Models;
-using Hearthstone.DataAccess.MongoDbServices;
+﻿using Hearthstone.DataAccess.MongoDbServices;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace Assignment4.Controllers
+namespace Assignment4.Controllers.CardType
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TypesController : ControllerBase
+    public class CardTypesController : ControllerBase
     {
         private readonly TypeService _service;
-        private readonly ILogger<TypesController> _logger;
+        private readonly ILogger<CardTypesController> _logger;
 
-        public TypesController(TypeService typeService, ILogger<TypesController> logger)
+        public CardTypesController(TypeService typeService, ILogger<CardTypesController> logger)
         {
             _service = typeService;
             _logger = logger;
         }
 
         [HttpGet("Types")]
-        public async Task<IReadOnlyList<CardType>> GetTypes()
+        public async Task<IReadOnlyList<Hearthstone.DataAccess.Models.CardType>> GetTypes()
         {
             _logger.LogInformation("GetSets request received.");
 

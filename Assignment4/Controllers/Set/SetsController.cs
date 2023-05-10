@@ -1,8 +1,7 @@
-﻿using Hearthstone.DataAccess.Models;
-using Hearthstone.DataAccess.MongoDbServices;
+﻿using Hearthstone.DataAccess.MongoDbServices;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Assignment4.Controllers
+namespace Assignment4.Controllers.Set
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,7 +17,7 @@ namespace Assignment4.Controllers
         }
 
         [HttpGet("sets")]
-        public async Task<IReadOnlyList<Set>> GetSets()
+        public async Task<IReadOnlyList<Hearthstone.DataAccess.Models.Set>> GetSets()
         {
             _logger.LogInformation("GetSets request received.");
 

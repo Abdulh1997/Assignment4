@@ -1,8 +1,7 @@
-﻿using Hearthstone.DataAccess.Models;
-using Hearthstone.DataAccess.MongoDbServices;
+﻿using Hearthstone.DataAccess.MongoDbServices;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Assignment4.Controllers
+namespace Assignment4.Controllers.Rarity
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,7 +17,7 @@ namespace Assignment4.Controllers
         }
 
         [HttpGet("classes")]
-        public async Task<IReadOnlyList<Rarity>> GetRarities()
+        public async Task<IReadOnlyList<Hearthstone.DataAccess.Models.Rarity>> GetRarities()
         {
             _logger.LogInformation("GetRarities request received.");
 

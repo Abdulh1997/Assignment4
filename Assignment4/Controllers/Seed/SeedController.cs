@@ -1,7 +1,7 @@
 ﻿using Hearthstone.DataAccess.MongoDbServices;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Assignment4.Controllers
+namespace Assignment4.Controllers.Seed
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -9,7 +9,7 @@ namespace Assignment4.Controllers
     {
         private readonly SeedService _seedService;
         private readonly ILogger<SeedController> _logger;
-        
+
         public SeedController(SeedService seedService, ILogger<SeedController> logger)
         {
             _seedService = seedService;

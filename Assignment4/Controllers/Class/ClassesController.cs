@@ -1,8 +1,7 @@
-﻿using Hearthstone.DataAccess.Models;
-using Hearthstone.DataAccess.MongoDbServices;
+﻿using Hearthstone.DataAccess.MongoDbServices;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Assignment4.Controllers
+namespace Assignment4.Controllers.Class
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,7 +17,7 @@ namespace Assignment4.Controllers
         }
 
         [HttpGet("classes")]
-        public async Task<IReadOnlyList<Class>> GetClasses()
+        public async Task<IReadOnlyList<Hearthstone.DataAccess.Models.Class>> GetClasses()
         {
             _logger.LogInformation("GetClasses request received.");
 
