@@ -1,0 +1,41 @@
+﻿version: '3.9'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: "mongo_container"
+    restart: always
+    ports: 
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+  api:
+    build: .
+    depends_on:
+      - mongo
+    ports:
+      - 5001:80
+      - 5000:443
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTPS_PORT=5000
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mypassword
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/localhost.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
+  mongo-express:
+    container_name: "mongo_express"
+    depends_on:
+      - mongo
+    image: mongo-express
+    restart: always
+    ports:  
+      - 5050:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: user
+      ME_CONFIG_BASICAUTH_PASSWORD: password
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
