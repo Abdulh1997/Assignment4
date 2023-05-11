@@ -36,9 +36,9 @@ namespace Assignment4.Controllers.Card
         }
 
         /// <summary>
-        /// Gets all Cards
+        /// Gets Cards with query parameters
         /// </summary>
-        /// <response code="200">Returns all cards</response>
+        /// <response code="200">Returns Cards</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("cards")]
         public async Task<ActionResult<IReadOnlyList<Hearthstone.DataAccess.Models.Card>>> GetCardsWithParameters(

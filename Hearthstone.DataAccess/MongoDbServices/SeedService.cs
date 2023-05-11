@@ -24,7 +24,6 @@ namespace Hearthstone.DataAccess.MongoDbServices
 
             if ((await Client.GetDatabase(_config.Value.DatabaseName).ListCollectionsAsync()).ToList().Count != 0) return;
 
-            // SEED cards.json Data
             var collection = db.GetCollection<Card>(_config.Value.CardsCollection);
 
             foreach (var path in new[] { "cards.json" })

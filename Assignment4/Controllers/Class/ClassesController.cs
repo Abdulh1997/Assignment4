@@ -15,6 +15,11 @@ namespace Assignment4.Controllers.Class
             _logger = logger;
         }
 
+        /// <summary>
+        /// Gets classes
+        /// </summary>
+        /// <response code="200">Returns all classes</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("classes")]
         public async Task<IReadOnlyList<Hearthstone.DataAccess.Models.Class>> GetClasses()
         {

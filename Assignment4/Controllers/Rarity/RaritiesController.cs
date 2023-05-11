@@ -15,6 +15,11 @@ namespace Assignment4.Controllers.Rarity
             _logger = logger;
         }
 
+        /// <summary>
+        /// Gets card-rarities
+        /// </summary>
+        /// <response code="200">Returns all rarities</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("rarities")]
         public async Task<IReadOnlyList<Hearthstone.DataAccess.Models.Rarity>> GetRarities()
         {

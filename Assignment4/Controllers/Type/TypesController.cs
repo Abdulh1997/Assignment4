@@ -15,6 +15,11 @@ namespace Assignment4.Controllers.Type
             _logger = logger;
         }
 
+        /// <summary>
+        /// Gets card-types
+        /// </summary>
+        /// <response code="200">Returns all types</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("types")]
         public async Task<IReadOnlyList<Hearthstone.DataAccess.Models.CardType>> GetTypes()
         {

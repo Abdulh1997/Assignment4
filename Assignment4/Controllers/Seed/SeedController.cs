@@ -15,6 +15,11 @@ namespace Assignment4.Controllers.Seed
             _logger = logger;
         }
 
+        /// <summary>
+        /// Seeds MongoDB with data if not data exists
+        /// </summary>
+        /// <response code="200">Seed complete</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPost("/seed")]
         public async Task<ActionResult> SeedMongoDb()
         {

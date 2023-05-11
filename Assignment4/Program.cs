@@ -24,20 +24,16 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddAutoMapper(typeof(Program));
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-        corsPolicyBuilder =>
-        {
-            corsPolicyBuilder.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
-
 var app = builder.Build();
 
-app.UseCors();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var seedService = services.GetRequiredService<SeedService>();
+
+    await seedService.SeedMongoDb();
+}
 
 if (app.Environment.IsDevelopment())
 {

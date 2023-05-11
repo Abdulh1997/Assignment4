@@ -15,6 +15,11 @@ namespace Assignment4.Controllers.Set
             _logger = logger;
         }
 
+        /// <summary>
+        /// Gets card-sets
+        /// </summary>
+        /// <response code="200">Returns all sets</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("sets")]
         public async Task<IReadOnlyList<Hearthstone.DataAccess.Models.Set>> GetSets()
         {
