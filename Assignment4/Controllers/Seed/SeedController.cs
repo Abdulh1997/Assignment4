@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment4.Controllers.Seed
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class SeedController : ControllerBase
     {

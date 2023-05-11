@@ -4,14 +4,13 @@ using Hearthstone.DataAccess.MongoDbServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.Configure<MongoDbConfig>(builder.Configuration.GetSection("MongoDbConfig"));
-builder.Services.AddSingleton<SeedService>();
-builder.Services.AddSingleton<CardService>();
-builder.Services.AddSingleton<ClassService>();
-builder.Services.AddSingleton<SetsService>();
-builder.Services.AddSingleton<RarityService>();
-builder.Services.AddSingleton<TypeService>();
+builder.Services.AddScoped<SeedService>();
+builder.Services.AddScoped<CardService>();
+builder.Services.AddScoped<ClassService>();
+builder.Services.AddScoped<SetsService>();
+builder.Services.AddScoped<RarityService>();
+builder.Services.AddScoped<TypeService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -25,9 +24,21 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddAutoMapper(typeof(Program));
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        corsPolicyBuilder =>
+        {
+            corsPolicyBuilder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseCors();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

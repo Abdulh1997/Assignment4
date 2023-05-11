@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment4.Controllers.Card
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class CardController : ControllerBase
     {
@@ -17,7 +16,6 @@ namespace Assignment4.Controllers.Card
 
         private readonly IMapper _mapper;
         private readonly ILogger<CardController> _logger;
-
 
         public CardController(
             CardService cardService,
@@ -41,9 +39,7 @@ namespace Assignment4.Controllers.Card
         /// Gets all Cards
         /// </summary>
         /// <response code="200">Returns all cards</response>
-        /// <response code="404">No cards found</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("cards")]
         public async Task<ActionResult<IReadOnlyList<Hearthstone.DataAccess.Models.Card>>> GetCardsWithParameters(
             int? typeId = null,
@@ -57,11 +53,6 @@ namespace Assignment4.Controllers.Card
             _logger.LogInformation("GetCardsWithParameters request received.");
 
             var cards = await _cardService.GetCards(setId, classId, rarityId, typeId, artist, page);
-
-            if (cards.Count <= 0)
-            {
-                return NotFound();
-            }
 
             var classes = await _classService.GetClasses();
             var types = await _typeService.GetTypes();

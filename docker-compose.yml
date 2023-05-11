@@ -15,12 +15,11 @@ services:
     depends_on:
       - mongo
     ports:
-      - 5001:80
       - 5000:443
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTPS_PORT=5000
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=https://+:443
       - ASPNETCORE_Kestrel__Certificates__Default__Password=mypassword
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/localhost.pfx
     volumes:

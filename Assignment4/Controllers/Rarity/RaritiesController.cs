@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment4.Controllers.Rarity
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class RaritiesController : ControllerBase
     {
@@ -16,7 +15,7 @@ namespace Assignment4.Controllers.Rarity
             _logger = logger;
         }
 
-        [HttpGet("classes")]
+        [HttpGet("rarities")]
         public async Task<IReadOnlyList<Hearthstone.DataAccess.Models.Rarity>> GetRarities()
         {
             _logger.LogInformation("GetRarities request received.");

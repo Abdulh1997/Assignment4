@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment4.Controllers.Set
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class SetsController : ControllerBase
     {
