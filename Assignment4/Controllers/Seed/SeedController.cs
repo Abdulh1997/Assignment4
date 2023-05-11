@@ -16,7 +16,7 @@ namespace Assignment4.Controllers.Seed
         }
 
         /// <summary>
-        /// Seeds MongoDB with data if not data exists
+        /// Seeds MongoDB with data if no data exists
         /// </summary>
         /// <response code="200">Seed complete</response>
         [ProducesResponseType(StatusCodes.Status200OK)]

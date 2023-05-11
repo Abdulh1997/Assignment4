@@ -36,7 +36,7 @@ namespace Assignment4.Controllers.Card
         }
 
         /// <summary>
-        /// Gets Cards with query parameters
+        /// Gets cards with query parameters
         /// </summary>
         /// <response code="200">Returns Cards</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
