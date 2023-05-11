@@ -1,11 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Assignment4.Modeles
+namespace Hearthstone.DataAccess.Models
 {
     public class Card
     {
         public int Id { get; set; }
-        public String Name { get; set; }
+        public string Name { get; set; } = null!;
         public int ClassId { get; set; }
 
         [JsonPropertyName("cardTypeId")]
@@ -20,8 +20,8 @@ namespace Assignment4.Modeles
         public int ManaCost { get; set; }
 
         [JsonPropertyName("artistName")]
-        public String Artist { get; set; }
-        public String Text { get; set; }
-        public String FlavorText { get; set; }
+        public string Artist { get; set; } = null!;
+        public string Text { get; set; } = null!;
+        public string FlavorText { get; set; } = null!;
     }
 }

@@ -1,15 +1,14 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Assignment4.Modeles
+namespace Hearthstone.DataAccess.Models
 {
     public class Set
     {
         public int Id { get; set; }
-        public String Name { get; set; }
-        public String Type { get; set; }
+        public string Name { get; set; } = null!;
+        public string Type { get; set; } = null!;
+
         [JsonPropertyName("collectibleCount")]
         public int CardCount { get; set; }
-
-    
     }
 }
