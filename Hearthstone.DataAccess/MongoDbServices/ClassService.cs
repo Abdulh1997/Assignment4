@@ -9,9 +9,9 @@ namespace Hearthstone.DataAccess.MongoDbServices
     {
         private readonly IMongoCollection<Class> _collection;
 
-        public ClassService(SeedService dbSeedService, IOptions<MongoDbConfig> config)
+        public ClassService(MongoDbService dbMongoDbService, IOptions<MongoDbConfig> config)
         {
-            _collection = dbSeedService.Client.GetDatabase(config.Value.DatabaseName).GetCollection<Class>(config.Value.ClassesCollection);
+            _collection = dbMongoDbService.Client.GetDatabase(config.Value.DatabaseName).GetCollection<Class>(config.Value.ClassesCollection);
         }
         
         public async Task<IReadOnlyList<Class>> GetClasses()

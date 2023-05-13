@@ -11,8 +11,8 @@ namespace Assignment4.Controllers.Set
 
         public SetsController(SetsService setService, ILogger<SetsController> logger)
         {
-            _service = setService;
-            _logger = logger;
+            _service = setService ?? throw new ArgumentNullException(nameof(setService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>

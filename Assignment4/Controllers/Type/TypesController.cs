@@ -11,8 +11,8 @@ namespace Assignment4.Controllers.Type
 
         public TypesController(TypeService typeService, ILogger<TypesController> logger)
         {
-            _service = typeService;
-            _logger = logger;
+            _service = typeService ?? throw new ArgumentNullException(nameof(typeService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>

@@ -6,13 +6,13 @@ namespace Assignment4.Controllers.Seed
     [ApiController]
     public class SeedController : ControllerBase
     {
-        private readonly SeedService _seedService;
+        private readonly MongoDbService _mongoDbService;
         private readonly ILogger<SeedController> _logger;
 
-        public SeedController(SeedService seedService, ILogger<SeedController> logger)
+        public SeedController(MongoDbService mongoDbService, ILogger<SeedController> logger)
         {
-            _seedService = seedService;
-            _logger = logger;
+            _mongoDbService = mongoDbService ?? throw new ArgumentNullException(nameof(mongoDbService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Assignment4.Controllers.Seed
         {
             _logger.LogInformation("SeedMongoDb request received.");
 
-            await _seedService.SeedMongoDb();
+            await _mongoDbService.SeedMongoDb();
 
             _logger.LogInformation("SeedMongoDb request completed.");
 

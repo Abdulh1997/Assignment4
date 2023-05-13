@@ -26,13 +26,13 @@ namespace Assignment4.Controllers.Card
             IMapper mapper,
             ILogger<CardController> logger)
         {
-            _cardService = cardService;
-            _classService = classService;
-            _typeService = typeService;
-            _setsService = setsService;
-            _rarityService = rarityService;
-            _mapper = mapper;
-            _logger = logger;
+            _cardService = cardService ?? throw new ArgumentNullException(nameof(cardService));
+            _classService = classService ?? throw new ArgumentNullException(nameof(classService));
+            _typeService = typeService ?? throw new ArgumentNullException(nameof(typeService));
+            _setsService = setsService ?? throw new ArgumentNullException(nameof(setsService));
+            _rarityService = rarityService ?? throw new ArgumentNullException(nameof(rarityService));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>

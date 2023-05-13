@@ -5,7 +5,7 @@ using Hearthstone.DataAccess.MongoDbServices;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<MongoDbConfig>(builder.Configuration.GetSection("MongoDbConfig"));
-builder.Services.AddScoped<SeedService>();
+builder.Services.AddScoped<MongoDbService>();
 builder.Services.AddScoped<CardService>();
 builder.Services.AddScoped<ClassService>();
 builder.Services.AddScoped<SetsService>();
@@ -30,7 +30,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    var seedService = services.GetRequiredService<SeedService>();
+    var seedService = services.GetRequiredService<MongoDbService>();
 
     await seedService.SeedMongoDb();
 }

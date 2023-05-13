@@ -9,9 +9,9 @@ namespace Hearthstone.DataAccess.MongoDbServices
     {
         private readonly IMongoCollection<Rarity> _collection;
 
-        public RarityService(SeedService dbSeedService, IOptions<MongoDbConfig> config)
+        public RarityService(MongoDbService dbMongoDbService, IOptions<MongoDbConfig> config)
         {
-            _collection = dbSeedService.Client.GetDatabase(config.Value.DatabaseName).GetCollection<Rarity>(config.Value.RaritiesCollection);
+            _collection = dbMongoDbService.Client.GetDatabase(config.Value.DatabaseName).GetCollection<Rarity>(config.Value.RaritiesCollection);
         }
 
         public async Task<IReadOnlyList<Rarity>> GetRarities()

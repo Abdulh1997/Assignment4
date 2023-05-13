@@ -11,8 +11,8 @@ namespace Assignment4.Controllers.Class
 
         public ClassesController(ClassService classService, ILogger<ClassesController> logger)
         {
-            _service = classService;
-            _logger = logger;
+            _service = classService ?? throw new ArgumentNullException(nameof(classService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>

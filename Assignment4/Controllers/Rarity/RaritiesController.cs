@@ -11,8 +11,8 @@ namespace Assignment4.Controllers.Rarity
 
         public RaritiesController(RarityService rarityService, ILogger<RaritiesController> logger)
         {
-            _service = rarityService;
-            _logger = logger;
+            _service = rarityService ?? throw new ArgumentNullException(nameof(rarityService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>

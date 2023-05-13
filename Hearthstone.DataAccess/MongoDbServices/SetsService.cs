@@ -9,9 +9,9 @@ namespace Hearthstone.DataAccess.MongoDbServices
     {
         private readonly IMongoCollection<Set> _collection;
 
-        public SetsService(SeedService dbSeedService, IOptions<MongoDbConfig> config)
+        public SetsService(MongoDbService dbMongoDbService, IOptions<MongoDbConfig> config)
         {
-            _collection = dbSeedService.Client.GetDatabase(config.Value.DatabaseName).GetCollection<Set>(config.Value.SetsCollection);
+            _collection = dbMongoDbService.Client.GetDatabase(config.Value.DatabaseName).GetCollection<Set>(config.Value.SetsCollection);
         }
 
         public async Task<IReadOnlyList<Set>> GetSets()

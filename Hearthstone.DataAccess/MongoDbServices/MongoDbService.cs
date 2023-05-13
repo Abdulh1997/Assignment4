@@ -6,15 +6,15 @@ using Microsoft.Extensions.Options;
 
 namespace Hearthstone.DataAccess.MongoDbServices
 {
-    public class SeedService
+    public class MongoDbService
     {
         public MongoClient Client { get; }
 
         private readonly IOptions<MongoDbConfig> _config;
 
-        public SeedService(IOptions<MongoDbConfig> config)
+        public MongoDbService(IOptions<MongoDbConfig> config)
         {
-            _config = config;
+            _config = config ?? throw new ArgumentNullException(nameof(config));
             Client = new MongoClient(_config.Value.ConnectionString);
         }
 

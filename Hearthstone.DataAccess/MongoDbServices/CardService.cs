@@ -10,9 +10,9 @@ namespace Hearthstone.DataAccess.MongoDbServices
     {
         private readonly IMongoCollection<Card> _collection;
 
-        public CardService(SeedService dbSeedService, IOptions<MongoDbConfig> config)
+        public CardService(MongoDbService mongoDbService, IOptions<MongoDbConfig> config)
         {
-            _collection = dbSeedService.Client.GetDatabase(config.Value.DatabaseName).GetCollection<Card>(config.Value.CardsCollection);
+            _collection = mongoDbService.Client.GetDatabase(config.Value.DatabaseName).GetCollection<Card>(config.Value.CardsCollection);
         }
 
         public async Task<IReadOnlyList<Card>> GetCards(int? setId = null, int? classId = null, int? rarityId = null, int? typeid = null, string? artist = null, int? page = null)
